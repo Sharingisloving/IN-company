@@ -90,13 +90,13 @@ public abstract class BaseDeals<M extends BaseDeals<M>> extends Model<M> impleme
 		return getStr("MainIndustries");
 	}
 
-	public M setDealValueUSDmn(java.lang.String DealValueUSDmn) {//存疑
+	public M setDealValueUSDmn(java.lang.String DealValueUSDmn) {
 		set("DealValueUSD(mn)", DealValueUSDmn);
 		return (M)this;
 	}
 	
 	public java.lang.String getDealValueUSDmn() {
-		return getStr("DealValueUSD(mn)");
+		return getStr("DealValueUSDmn");
 	}
 
 	public M setDealValueSource(java.lang.String DealValueSource) {

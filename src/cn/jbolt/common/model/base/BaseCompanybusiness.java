@@ -63,15 +63,6 @@ public abstract class BaseCompanybusiness<M extends BaseCompanybusiness<M>> exte
 		return getStr("StateCounty");
 	}
 
-	public M setKeyExecutives(java.lang.String KeyExecutives) {
-		set("KeyExecutives", KeyExecutives);
-		return (M)this;
-	}
-	
-	public java.lang.String getKeyExecutives() {
-		return getStr("KeyExecutives");
-	}
-
 	public M setNumberOfEmployees(java.lang.String NumberOfEmployees) {
 		set("NumberOfEmployees", NumberOfEmployees);
 		return (M)this;
@@ -88,15 +79,6 @@ public abstract class BaseCompanybusiness<M extends BaseCompanybusiness<M>> exte
 	
 	public java.lang.String getEmployeeReferenceDate() {
 		return getStr("EmployeeReferenceDate");
-	}
-
-	public M setFinancialAuditors(java.lang.String FinancialAuditors) {
-		set("FinancialAuditors", FinancialAuditors);
-		return (M)this;
-	}
-	
-	public java.lang.String getFinancialAuditors() {
-		return getStr("FinancialAuditors");
 	}
 
 	public M setLegalForm(java.lang.String LegalForm) {

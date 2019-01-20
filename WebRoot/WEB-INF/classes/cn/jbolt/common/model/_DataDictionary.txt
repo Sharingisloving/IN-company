@@ -1,3 +1,9 @@
+Table: financialauditors
+-------+------+------+-----+---------+---------
+ Field | Type | Null | Key | Default | Remarks 
+-------+------+------+-----+---------+---------
+-------+------+------+-----+---------+---------
+
 Table: companybusiness
 -----------------------------+--------------+------+-----+---------+---------
  Field                       | Type         | Null | Key | Default | Remarks 
@@ -8,10 +14,8 @@ Table: companybusiness
  Industry                    | VARCHAR(255) | YES  |     |         |         
  City                        | VARCHAR(255) | YES  |     |         |         
  StateCounty                 | VARCHAR(255) | YES  |     |         |         
- KeyExecutives               | TEXT(65535)  | YES  |     |         |         
  NumberOfEmployees           | VARCHAR(255) | YES  |     |         |         
  EmployeeReferenceDate       | VARCHAR(255) | YES  |     |         |         
- FinancialAuditors           | VARCHAR(255) | YES  |     |         |         
  LegalForm                   | VARCHAR(255) | YES  |     |         |         
  ListedUnlisted              | VARCHAR(255) | YES  |     |         |         
  OperationalStatus           | VARCHAR(255) | YES  |     |         |         
@@ -57,14 +61,6 @@ Table: deals
  StakePercent     | VARCHAR(255) | YES  |     |         |         
  Comments         | TEXT(65535)  | YES  |     |         |         
 ------------------+--------------+------+-----+---------+---------
-
-Table: financialauditors
--------------------+--------------+------+-----+---------+---------
- Field             | Type         | Null | Key | Default | Remarks 
--------------------+--------------+------+-----+---------+---------
- CompanyId         | INT(10)      | NO   | PRI |         |         
- FinancialAuditors | VARCHAR(255) | NO   | PRI |         |         
--------------------+--------------+------+-----+---------+---------
 
 Table: keyexecutive
 ---------------+--------------+------+-----+---------+---------
