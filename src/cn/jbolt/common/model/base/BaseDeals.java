@@ -90,7 +90,7 @@ public abstract class BaseDeals<M extends BaseDeals<M>> extends Model<M> impleme
 		return getStr("MainIndustries");
 	}
 
-	public M setDealValueUSDmn(java.lang.String DealValueUSDmn) {
+	public M setDealValueUSDmn(java.lang.String DealValueUSDmn) {//存疑
 		set("DealValueUSD(mn)", DealValueUSDmn);
 		return (M)this;
 	}

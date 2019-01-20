@@ -171,7 +171,7 @@ div {
     </div>
     <div class="mt10 hidden js-search-container" id="input-human">
     	<div class="input-group home-group">
-    		<form id="HumanForm"  action="search2" method="post">
+    		<form id="HumanForm"  action="EX/search" method="post">
             	<div class="live-search-wrap -index">
                 	<input type="search" id="home-main-search" class="input -hg js-live-search-auto"  maxlength="50" name="HumanName" placeholder="请输入高管名称" />
                     <input value="搜索" class="input-group-btn btn -hg" type="submit">

@@ -16,8 +16,9 @@ public class Companybusiness extends BaseCompanybusiness<Companybusiness> {
 	public Page<Record> findByCompanyName(int page,String CompanyName){
 		return Db.paginate(page,9, "select *","from companybusiness where CompanyName like '%"+CompanyName+"%'");
 	}
-	public Page<Record> findByShareholderName(int page,String ShareholderName){
-		return Db.paginate(page,9, "select *","from companybusiness where shareholders like '%"+ShareholderName+"%'");
+	public Page<Record> findByExecutiveName(int page,String HumanName){//查人
+		return Db.paginate(page,10, "select *","from companybusiness natural join keyexecutive"
+				+ " where KeyExecutives like '%"+HumanName+"%'");
 	}
 	public Record findall(String CompanyName){
 		return Db.findFirst("select * from companybusiness where CompanyName='"+CompanyName+"'");
@@ -25,7 +26,7 @@ public class Companybusiness extends BaseCompanybusiness<Companybusiness> {
 	public Page<Record> findBySimilarIndustry(int page,String Industry){
 		return Db.paginate(page,9, "select *","from companybusiness where Industry='"+Industry+"'");
 	}
-	public Page<Record> findBySameExecutives(int page,String CompanyName,String[] executive,String[] auditor){
+	public Page<Record> findBySameExecutives(int page,String CompanyName,String[] executive,String[] auditor){//查相似高管
 		String sql="from companybusiness where KeyExecutives like '%"+executive[1]+"%'";
 		for(int i=2;i<executive.length;i++){
 			if(!executive[i].equals("n/a")){

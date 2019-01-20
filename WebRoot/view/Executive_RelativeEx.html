@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="/view/css1.css">
+<script type="text/javascript" src="method.js"></script>
+<script type="text/javascript" src="jquery-form.js"></script>
+<title>印尼企业查</title>
+<script type="text/javascript">
+</script>
+</head>
+<body>
+<div style="font-size:32px;text-align:center;">
+#(CompanyName)  Key Executives List
+</div>
+
+<div class="table-inner">
+        <div class="table-head">
+            <table>
+                <thead>
+                    <tr>
+                        <th>名字</th>
+                        <th>职位</th>
+                        <th>关联公司</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="table-body">
+            <table width="130">
+                <tbody id="tbody">
+                #for(x:RelativeEx)
+                <tr>
+                    <td>#(x.KeyExecutives)</td>
+                    <td>#(x.JobTitle)</td>
+                    <td><form action="search" method="post">	
+                    <input type="text" hidden="true" name="HumanName" value="#(x.KeyExecutives)" />
+                	<input type="submit" value="详细" class="input-group-btn btn -hg"></form></td>
+                </tr>
+                #end
+                </tbody>
+            </table>
+  		</div>
+</div>
+</body>
+</html>

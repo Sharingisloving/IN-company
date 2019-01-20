@@ -8,10 +8,12 @@ import com.jfinal.plugin.activerecord.IBean;
  */
 @SuppressWarnings({"serial", "unchecked"})
 public abstract class BaseRelation<M extends BaseRelation<M>> extends Model<M> implements IBean {
-	public M setid1(java.lang.String id1) {
+	
+	public M setId1(java.lang.String id1) {
 		set("id1", id1);
 		return (M)this;
 	}
+	
 	public java.lang.String get﻿id1() {
 		return getStr("﻿id1");
 	}

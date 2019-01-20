@@ -18,6 +18,10 @@ public class _MappingKit {
 	public static void mapping(ActiveRecordPlugin arp) {
 		arp.addMapping("companybusiness", "CompanyId", Companybusiness.class);
 		arp.addMapping("deals", "DealID", Deals.class);
+		// Composite Primary Key order: CompanyId,FinancialAuditors
+		arp.addMapping("financialauditors", "CompanyId,FinancialAuditors", Financialauditors.class);
+		// Composite Primary Key order: CompanyId,JobTitle,KeyExecutives
+		arp.addMapping("keyexecutive", "CompanyId,JobTitle,KeyExecutives", Keyexecutive.class);
 		// Composite Primary Key order: id2,﻿id1
 		arp.addMapping("relation", "id2,﻿id1", Relation.class);
 	}

@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="/view/css1.css">
+<script type="text/javascript" src="method.js"></script>
+<script type="text/javascript" src="jquery-form.js"></script>
+<title>印尼企业查</title>
+<script type="text/javascript">
+</script>
+</head>
+<body>
+<div style="font-size:30px;text-align:center;">
+与#(ExecutiveName)
+有关的公司为：
+</div>
+
+<div class="table-inner">
+        <div class="table-head">
+            <table>
+                <thead>
+                    <tr>
+                        <th>企业名称</th>
+                        <th>行业</th>
+                        <th>所处城市</th>
+                        <th>企业高管</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="table-body">
+            <table width="130">
+                <tbody id="tbody">
+                #for(x:Executive)
+                <tr>
+                    <td>#(x.CompanyName)</td>
+                    <td>#(x.Industry)</td>
+                    <td>#(x.City)</td>
+                    <td><form id="DetailForm" action="RelativeEx" method="post">	
+                    <input type="text" hidden="true" name="CompanyId" value="#(x.CompanyId)" />
+                    <input type="text" hidden="true" name="CompanyName" value="#(x.CompanyName)" />
+                	<input type="submit" value="详细" class="input-group-btn btn -hg"></form></td>
+                </tr>
+                #end
+                </tbody>
+            </table>
+  		</div>
+        <div  class="page-wrap">
+            <ul class="pagination">
+            
+            <li><a name="currentPage">当前页：#(pageNumber)</a></li>
+            <form action="Page" method="post">
+	            <input type="hidden" value="#(pageNumber)" name="pageNumber" />
+	            <input type="hidden" value="#(totalPage)" name="totalPage" />
+	            <input type="hidden" value="#(ExecutiveName)" name="ExecutiveName" />
+                <li><input type="submit" value="pre page" 	name="action" class="input-group-btn btn -hg"></li>
+                <li><input type="submit" value="next page" name="action" class="input-group-btn btn -hg"></li>
+               	<li><a name="currentPage">总页数：#(totalPage)</a></li>  
+            	<li>
+	                <input type="search" class="input -hg js-live-search-auto"  maxlength="4" name="pageNumber2" value="" />         
+	                <input type="submit" value="jump page" name="action" class="input-group-btn btn -hg" />
+                </li>
+           	</form>
+           	
+
+                
+            </ul>
+        </div>
+</div>
+</body>
+</html>

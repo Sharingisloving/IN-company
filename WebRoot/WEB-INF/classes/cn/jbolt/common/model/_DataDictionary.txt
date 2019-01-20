@@ -58,6 +58,23 @@ Table: deals
  Comments         | TEXT(65535)  | YES  |     |         |         
 ------------------+--------------+------+-----+---------+---------
 
+Table: financialauditors
+-------------------+--------------+------+-----+---------+---------
+ Field             | Type         | Null | Key | Default | Remarks 
+-------------------+--------------+------+-----+---------+---------
+ CompanyId         | INT(10)      | NO   | PRI |         |         
+ FinancialAuditors | VARCHAR(255) | NO   | PRI |         |         
+-------------------+--------------+------+-----+---------+---------
+
+Table: keyexecutive
+---------------+--------------+------+-----+---------+---------
+ Field         | Type         | Null | Key | Default | Remarks 
+---------------+--------------+------+-----+---------+---------
+ CompanyId     | INT(10)      | NO   | PRI |         |         
+ KeyExecutives | VARCHAR(255) | NO   | PRI |         |         
+ JobTitle      | VARCHAR(255) | NO   | PRI |         |         
+---------------+--------------+------+-----+---------+---------
+
 Table: relation
 --------+--------------+------+-----+---------+---------
  Field  | Type         | Null | Key | Default | Remarks 
