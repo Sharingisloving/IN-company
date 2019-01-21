@@ -9,91 +9,100 @@ import cn.jbolt.common.model.Companybusiness;
 
 
 public class CompanyController extends Controller {
-	static String Company="";	//输入框字符串
-	static String WholeName="";	//企业全称
-	static String Industry="";	//企业的业务
-	static int totalPgae;		//总共的页数
-	static int total;			//总共的记录数
-	static int currentPage=1;		//当前页号
-	static String[] exes;
-	static String[] auditors;
-	static int mode=1;			//1为按名字搜索企业 2为相似业务推荐
 	public void index() {
     	render("/view/main.jsp");
     }
 	
 	public void search1(){
-		mode=1;
 		Integer pageNumber=getParaToInt("pageNumber");
 		if(pageNumber==null){
 			pageNumber=1;
 		}
-		String company = getPara("CompanyName");//获取输入框数据
-		Company=company;
-		Page<Record> list=Companybusiness.dao.findByCompanyName(pageNumber,company);
-		totalPgae=list.getTotalPage(); 
-		total=list.getTotalRow();	   
-		currentPage=pageNumber;
-		setAttr("totolRecord", total);
-		setAttr("totalPgae", totalPgae);
+		String company = getPara("InputName");//获取输入框数据
+		Page<Record> list=Companybusiness.dao.findByCompanyName(pageNumber,company); 
+		setAttr("mode", "1");								//1为按名字搜索企业
+		setAttr("totolRecord", list.getTotalRow());
+		setAttr("totalPage", list.getTotalPage());
 		setAttr("pageNumber", list.getPageNumber());
 		setAttr("Company", list.getList());
+		setAttr("input", company);
 		render("/view/company_list.jsp");
 	}
 
 	public void PrePage(){
-		if(currentPage==1){	
-			currentPage=1;	//当前页是第一页
+
+		Integer pageNumber=getParaToInt("pageNumber");
+		String mode=getPara("mode");
+		if(pageNumber==1){	
+			pageNumber=1;	//当前页是第一页
 		}else{
-			currentPage-=1;			//页数加1
+			pageNumber-=1;			//页数加1
 		}
-		if(mode==1){
-			Page<Record> list=Companybusiness.dao.findByCompanyName(currentPage,Company);
-			setAttr("totolRecord", total);
-			setAttr("totalPgae", totalPgae);
+		if(mode.equals("1")){
+			String company = getPara("input");//获取输入框数据
+			Page<Record> list=Companybusiness.dao.findByCompanyName(pageNumber,company);
+			setAttr("mode","1");	
+			setAttr("totolRecord", list.getTotalRow());
+			setAttr("totalPage", list.getTotalPage());
 			setAttr("pageNumber", list.getPageNumber());
 			setAttr("Company", list.getList());
 			render("/view/company_list.jsp");
-		}else if(mode==2){
-			Page<Record> list=Companybusiness.dao.findBySimilarIndustry(currentPage, Industry);
-			setAttr("totolRecord", total);
-			setAttr("totalPgae", totalPgae);
+		}else if(mode.equals("2")){
+			String Industry=getPara("Industry");
+			Page<Record> list=Companybusiness.dao.findBySimilarIndustry(pageNumber, Industry);
+			setAttr("mode","2");	
+			setAttr("Industry",Industry);
+			setAttr("totolRecord", list.getTotalRow());
+			setAttr("totalPage", list.getTotalPage());
 			setAttr("pageNumber", list.getPageNumber());
 			setAttr("Company", list.getList());
 			render("/view/company_list.jsp");
-		}else if(mode==3){
-			Page<Record> list=Companybusiness.dao.findBySameExecutives(currentPage,WholeName,exes,auditors);
-			setAttr("totolRecord", total);
-			setAttr("totalPgae", totalPgae);
+		}else if(mode.equals("3")){
+			String KeyExecutives=getPara("KeyExecutive");
+			Page<Record> list=Companybusiness.dao.findBySameExecutives(pageNumber,KeyExecutives);
+			setAttr("mode","3");	
+			setAttr("totolRecord", list.getTotalRow());
+			setAttr("totalPage", list.getTotalPage());
 			setAttr("pageNumber", list.getPageNumber());
 			setAttr("Company", list.getList());
 			render("/view/company_list.jsp");
 		}
 	}
 	public void NextPage(){
-		if(currentPage==totalPgae){	
-			currentPage=totalPgae;	//当前页是最后一页
+		
+		String mode=getPara("mode");
+		Integer pageNumber=getParaToInt("pageNumber");
+		int totalPage=getParaToInt("totalPage");
+		if(pageNumber==totalPage){	
+			pageNumber=totalPage;	//当前页是最后一页
 		}else{
-			currentPage+=1;			//页数加1
+			pageNumber+=1;			//页数加1
 		}
-		if(mode==1){
-			Page<Record> list=Companybusiness.dao.findByCompanyName(currentPage,Company);
-			setAttr("totolRecord", total);
-			setAttr("totalPgae", totalPgae);
+		if(mode.equals("1")){
+			String company = getPara("input");//获取输入框数据
+			Page<Record> list=Companybusiness.dao.findByCompanyName(pageNumber,company);
+			setAttr("mode","1");	
+			setAttr("totolRecord", list.getTotalRow());
+			setAttr("totalPage", list.getTotalPage());
 			setAttr("pageNumber", list.getPageNumber());
 			setAttr("Company", list.getList());
 			render("/view/company_list.jsp");
-		}else if(mode==2){
-			Page<Record> list=Companybusiness.dao.findBySimilarIndustry(currentPage, Industry);
-			setAttr("totolRecord", total);
-			setAttr("totalPgae", totalPgae);
+		}else if(mode.equals("2")){
+			String Industry=getPara("Industry");
+			Page<Record> list=Companybusiness.dao.findBySimilarIndustry(pageNumber, Industry);
+			setAttr("mode","2");	
+			setAttr("Industry",Industry);
+			setAttr("totolRecord", list.getTotalRow());
+			setAttr("totalPage", list.getTotalPage());
 			setAttr("pageNumber", list.getPageNumber());
 			setAttr("Company", list.getList());
 			render("/view/company_list.jsp");
-		}else if(mode==3){
-			Page<Record> list=Companybusiness.dao.findBySameExecutives(currentPage,WholeName,exes,auditors);
-			setAttr("totolRecord", total);
-			setAttr("totalPgae", totalPgae);
+		}else if(mode.equals("3")){
+			String KeyExecutives=getPara("KeyExecutive");
+			Page<Record> list=Companybusiness.dao.findBySameExecutives(pageNumber,KeyExecutives);
+			setAttr("mode","3");	
+			setAttr("totolRecord", list.getTotalRow());
+			setAttr("totalPage", list.getTotalPage());
 			setAttr("pageNumber", list.getPageNumber());
 			setAttr("Company", list.getList());
 			render("/view/company_list.jsp");
@@ -101,29 +110,37 @@ public class CompanyController extends Controller {
 		
 	}
 	public void JumpPage(){
+		String mode=getPara("mode");
+		System.out.println(mode);
 		Integer pageNumber=getParaToInt("pageNumber");
 		if(pageNumber==null){
 			pageNumber=1;
 		}
-		currentPage=pageNumber;
-		if(mode==1){
-			Page<Record> list=Companybusiness.dao.findByCompanyName(currentPage,Company);
-			setAttr("totolRecord", total);
-			setAttr("totalPgae", totalPgae);
+		if(mode.equals("1")){
+			String company = getPara("input");//获取输入框数据
+			Page<Record> list=Companybusiness.dao.findByCompanyName(pageNumber,company);
+			setAttr("mode","1");	
+			setAttr("totolRecord", list.getTotalRow());
+			setAttr("totalPage", list.getTotalPage());
 			setAttr("pageNumber", list.getPageNumber());
 			setAttr("Company", list.getList());
 			render("/view/company_list.jsp");
-		}else if(mode==2){
-			Page<Record> list=Companybusiness.dao.findBySimilarIndustry(currentPage, Industry);
-			setAttr("totolRecord", total);
-			setAttr("totalPgae", totalPgae);
+		}else if(mode.equals("2")){
+			String Industry=getPara("Industry");
+			Page<Record> list=Companybusiness.dao.findBySimilarIndustry(pageNumber, Industry);
+			setAttr("mode","2");	
+			setAttr("Industry",Industry);
+			setAttr("totolRecord", list.getTotalRow());
+			setAttr("totalPage", list.getTotalPage());
 			setAttr("pageNumber", list.getPageNumber());
 			setAttr("Company", list.getList());
 			render("/view/company_list.jsp");
-		}else if(mode==3){
-			Page<Record> list=Companybusiness.dao.findBySameExecutives(currentPage,WholeName,exes,auditors);
-			setAttr("totolRecord", total);
-			setAttr("totalPgae", totalPgae);
+		}else if(mode.equals("3")){
+			String KeyExecutives=getPara("KeyExecutive");
+			Page<Record> list=Companybusiness.dao.findBySameExecutives(pageNumber,KeyExecutives);
+			setAttr("mode","3");	
+			setAttr("totolRecord", list.getTotalRow());
+			setAttr("totalPage", list.getTotalPage());
 			setAttr("pageNumber", list.getPageNumber());
 			setAttr("Company", list.getList());
 			render("/view/company_list.jsp");
@@ -133,14 +150,14 @@ public class CompanyController extends Controller {
 	@ActionKey("detail") 
 	public void CompanyDetail(){
 		String CompanyName=getPara("company");
-		WholeName=CompanyName;
 		Record result=Companybusiness.dao.findall(CompanyName);
-		Industry=result.getStr("Industry");
+		int CompanyId=result.get("CompanyId");
+		Page<Record> list=Companybusiness.dao.findExecutives(1,CompanyId);
 		setAttr("CompanyName", CompanyName);
+		setAttr("Company", list.getList());
 		setAttr("StateCounty", result.get("StateCounty"));
 		setAttr("City", result.get("City"));
 		setAttr("Industry", result.getStr("Industry"));
-		setAttr("KeyExecutives", result.get("KeyExecutives"));
 		setAttr("NumberOfEmployees", result.get("NumberOfEmployees"));
 		setAttr("LegalForm", result.get("LegalForm"));
 		setAttr("FinancialAuditors", result.get("FinancialAuditors"));
@@ -172,35 +189,24 @@ public class CompanyController extends Controller {
 	}
 	@ActionKey("similar") 
 	public void SimilarIndustry(){
-		mode=2;
-		//Integer pageNumber=getParaToInt("pageNumber");
-		Page<Record> list=Companybusiness.dao.findBySimilarIndustry(1, Industry);
-		totalPgae=list.getTotalPage(); 
-		total=list.getTotalRow();	   
+		String Industry=getPara("Industry");
+		Page<Record> list=Companybusiness.dao.findBySimilarIndustry(1, Industry);	   
 		//currentPage=pageNumber;
-		setAttr("totolRecord", total);
-		setAttr("totalPgae", totalPgae);
+		setAttr("mode","2");											//2为相似业务推荐
+		setAttr("Industry",Industry);
+		setAttr("totolRecord", list.getTotalRow());
+		setAttr("totalPage", list.getTotalPage());
 		setAttr("pageNumber", list.getPageNumber());
 		setAttr("Company", list.getList());
 		render("/view/company_list.jsp");
 	}
 	@ActionKey("relative")
 	public void RelativeCompany(){
-		mode=3;
-		Record r=Companybusiness.dao.findall(WholeName);
-		String executives=r.get("KeyExecutives");
-		String Auditors=r.getStr("FinancialAuditors");
-		String[] exe=executives.split(",");
-		String[] auditor=Auditors.split("[,&]");
-		exes=new String[exe.length];
-		auditors=new String[auditor.length];
-		exes=exe.clone();
-		auditors=auditor.clone();
-		Page<Record> list=Companybusiness.dao.findBySameExecutives(1,WholeName,exes,auditors);
-		totalPgae=list.getTotalPage(); 
-		total=list.getTotalRow();	   
-		setAttr("totolRecord", total);
-		setAttr("totalPgae", totalPgae);
+		String KeyExecutives=getPara("KeyExecutive");
+		Page<Record> list=Companybusiness.dao.findBySameExecutives(1,KeyExecutives);	   
+		setAttr("mode", "3");									//3为关联企业推荐
+		setAttr("totolRecord", list.getTotalRow());
+		setAttr("totalPage", list.getTotalPage());
 		setAttr("pageNumber", list.getPageNumber());
 		setAttr("Company", list.getList());
 		render("/view/company_list.jsp");

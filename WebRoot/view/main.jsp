@@ -3,7 +3,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>印尼企业查</title>
-<link rel="stylesheet" href="css1.css" type="text/css" />
+<link rel="stylesheet" href="/view/css1.css">
+
 <script type="text/javascript" src="method.js"></script>
 <script type="text/javascript" src="jquery-form.js"></script>
 <script type="text/javascript">
@@ -161,7 +162,7 @@ div {
     	<div class="input-group home-group">
     		<form id="CompanyForm"  action="search1" method="post">
             	<div class="live-search-wrap -index">
-                	<input type="search" id="home-main-search" class="input -hg js-live-search-auto"  maxlength="50" name="CompanyName" placeholder="请输入企业名称" />
+                	<input type="search" id="home-main-search" class="input -hg js-live-search-auto"  maxlength="50" name="InputName" placeholder="请输入企业名称" />
                 	<input value="搜索" class="input-group-btn btn -hg" type="submit">
 					<ul class="live-search-content hidden"></ul>
                 </div>

@@ -26,22 +26,10 @@ public class Companybusiness extends BaseCompanybusiness<Companybusiness> {
 	public Page<Record> findBySimilarIndustry(int page,String Industry){
 		return Db.paginate(page,9, "select *","from companybusiness where Industry='"+Industry+"'");
 	}
-	public Page<Record> findBySameExecutives(int page,String CompanyName,String[] executive,String[] auditor){//查相似高管
-		String sql="from companybusiness where KeyExecutives like '%"+executive[1]+"%'";
-		for(int i=2;i<executive.length;i++){
-			if(!executive[i].equals("n/a")){
-				sql+=" or KeyExecutives like '%"+executive[i]+"%'";
-			}
-			
-		}
-		for(int i=0;i<auditor.length;i++){
-			if(!auditor[i].equals("n/a")){
-				sql+=" or FinancialAuditors like '%"+auditor[i]+"%'";
-			}
-			
-		}
-		sql+=" and CompanyName!='"+CompanyName+"'";
-		return Db.paginate(page,9, "select *",sql);
-		
+	public Page<Record> findBySameExecutives(int page,String keyexecutive){//查相似高管
+		return Db.paginate(page,9, "select *","from keyexecutive,companybusiness where KeyExecutives='"+keyexecutive+"' and keyexecutive.CompanyId=companybusiness.CompanyId");
+	}
+	public Page<Record> findExecutives(int page,int CompanyId){
+		return Db.paginate(page,9, "select *","from keyexecutive where CompanyId="+CompanyId);
 	}
 }

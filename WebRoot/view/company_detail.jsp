@@ -64,7 +64,14 @@ tr:hover{
 
 </style>
 <script type="text/javascript">
-
+function relative(){
+	var form = document.getElementById('relative');
+	var x=document.getElementById("keyExecutive").text;
+	var executive=document.getElementById('executive');
+	executive.value=x;
+	form.submit();
+}
+  
 </script>
 </head>
 
@@ -74,9 +81,13 @@ tr:hover{
 	<div><h1 class="name">#(CompanyName)</h1>
     <input type="button" name="submit" onclick="javascript:history.back(-1);" value="返回" style="float:right" class="input-group-btn btn -hg"/>
     <form  action="similar" method="post" class="similar">	
+    				<input type="text" hidden="true" name="Industry" value="#(Industry)" />
+    				<input type="text" hidden="true" name="company" value="#(CompanyName)" />
                 	<input type="submit" value="相似企业推荐" class="input-group-btn btn -hg" style="float:right" ></form>
-    <form  action="relative" method="post" class="similar">	
-                	<input type="submit" value="关联企业" class="input-group-btn btn -hg" style="float:right" ></form>               
+    <form  action="relative" method="post" class="similar" id="relative">	
+    				<input type="text" hidden="true" name="company" value="#(CompanyName)" />
+                    <input type="text" hidden="true" id="executive" name="KeyExecutive" />
+                	<input type="submit" hidden="true" style="display:none"></form>               
     </div>
     <table class="table">
     	<tbody class=>
@@ -89,7 +100,7 @@ tr:hover{
             </tr>
             <tr>
             	<td>KeyExecutives</td>
-                <td>#(KeyExecutives)</td>
+                <td>#for(x:Company)<a href="javascript:" onclick="relative()" id="keyExecutive">#(x.KeyExecutives)</a> #end</td>
                 <td>Shareholders</td>
                 <td>#(Shareholders)</td>
             </tr>

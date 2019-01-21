@@ -110,11 +110,11 @@ ul li{ float:left; margin-left:20px; list-style-type:none;}
 .btn {
 	/* Box model */
 	display: inline-block;
-	padding: 2px 12px;
+	padding: 2px 10px;
 	border: 1px solid #f3f3f3;
 	border-radius: 2px;
 	/* Typographic */
-	font-size: 20px;
+	font-size: 17px;
 	text-align: center;
 	line-height: 18px;
 	font-weight: normal;
@@ -173,15 +173,31 @@ ul li{ float:left; margin-left:20px; list-style-type:none;}
             
             <li><a name="currentPage">当前页：#(pageNumber)</a></li>
             <li><form id="PrePage" action="PrePage" method="post">
+            		<input type="hidden" value="#(pageNumber)" name="pageNumber" />
+            		<input type="hidden" value="#(totalPage)" name="totalPage" />
+            		<input type="text" hidden="true" name="Industry" value="#(Industry)" />
+            		<input type="text" hidden="true" name="mode" value="#(mode)" />	
+            		<input type="text" hidden="true" name="input" value="#(input)" />
                 	<input type="submit" value="上一页" class="input-group-btn btn -hg"></form></li>
             <li><form id="NextPage" action="NextPage" method="post">
+            		<input type="hidden" value="#(pageNumber)" name="pageNumber" />
+            		<input type="hidden" value="#(totalPage)" name="totalPage" />
+            		<input type="text" hidden="true" name="Industry" value="#(Industry)" />
+            		<input type="text" hidden="true" name="mode" value="#(mode)" />	
+            		<input type="text" hidden="true" name="input" value="#(input)" />
                 	<input type="submit" value="下一页" class="input-group-btn btn -hg"></form></li>
-            <li><a name="currentPage">总页数：#(totalPgae)</a></li>  
+            <li><a name="currentPage">总页数：#(totalPage)</a></li>  
             <li><form id="JumpPage" action="JumpPage" method="post">
+            	<input type="hidden" value="#(pageNumber)" name="pageNumber" />
+            	<input type="hidden" value="#(totalPage)" name="totalPage" />
                 <input type="search" class="input -hg js-live-search-auto"  maxlength="4" name="pageNumber" value="" />
+                <input type="text" hidden="true" name="Industry" value="#(Industry)" />
+                <input type="text" hidden="true" name="mode" value="#(mode)" />	
+                <input type="text" hidden="true" name="input" value="#(input)" />
                 <input type="submit" value="跳转" class="input-group-btn btn -hg" /></form></li>
             <li><form id="returnForm" action="main" method="post">	
-                	<input type="submit" value="返回" class="input-group-btn btn -hg" style="float:right" ></form></li>
+                	<input type="submit" value="返回主页" class="input-group-btn btn -hg" style="float:right" ></form></li>
+             <li><input type="button" name="submit" onclick="javascript:history.back(-1);" value="返回上一页" style="float:right" class="input-group-btn btn -hg"/></li>
             </ul>
         </div>
 </div>
