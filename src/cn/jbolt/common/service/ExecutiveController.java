@@ -58,7 +58,7 @@ public class ExecutiveController extends Controller {
 				currentPage=pageNumber;
 			}
 		}
-		Page<Record> list=Companybusiness.dao.findByCompanyName(currentPage,ExecutiveName);
+		Page<Record> list=Companybusiness.dao.findByExecutiveName(currentPage,ExecutiveName);
 		setAttr("totalPage", totalPage);
 		setAttr("pageNumber", list.getPageNumber());
 		setAttr("Executive", list.getList());
