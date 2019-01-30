@@ -206,7 +206,8 @@ div {
             	<div class="live-search-wrap -index">
                 	<input type="search" id="home-main-search" class="input -hg js-live-search-auto"  maxlength="50" name="Relation1" placeholder="请输入相关名称" />
                 	<input type="search" id="home-main-search" class="input -hg js-live-search-auto"  maxlength="50" name="Relation2" placeholder="请输入相关名称" />
-                	<br><input type="radio" name="type" value="company">公司
+                	<br>选择查询关系:
+                	<input type="radio" name="type" value="company">公司
 					<input type="radio" name="type" value="human">高管<br>
                     <input value="查询" class="input-group-btn btn -hg" type="submit">
 					<ul class="live-search-content hidden"></ul>
