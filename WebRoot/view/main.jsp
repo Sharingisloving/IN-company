@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>印尼企业查</title>
-<link rel="stylesheet" href="/view/css1.css">
+<link rel="stylesheet" href="/view/css/css1.css">
 
 <script type="text/javascript" src="method.js"></script>
 <script type="text/javascript" src="jquery-form.js"></script>
