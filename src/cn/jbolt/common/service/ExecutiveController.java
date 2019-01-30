@@ -69,9 +69,29 @@ public class ExecutiveController extends Controller {
 	public void RelativeEx() {
 		int CompanyId = getParaToInt("CompanyId");//获取输入框数据
 		String name=getPara("CompanyName");
-		List<Record> list=Keyexecutive.dao.findByExecutiveName(CompanyId);
+		List<Record> list=Keyexecutive.dao.findByCompanyId(CompanyId);
 		setAttr("RelativeEx", list);		
 		setAttr("CompanyName", name);
 		render("/view/Executive_RelativeEx.html");
+	}
+	public void Relation() {
+		String name1=getPara("Relation1");
+		String name2=getPara("Relation2");
+		
+		List<Record> list1=Keyexecutive.dao.findByExecutiveName(name1);
+		List<Record> list2=Keyexecutive.dao.findByExecutiveName(name2);
+		List<Record> listCompany=Keyexecutive.dao.findCompanyByExecutiveName(name1,name2);
+		setAttr("list1", list1);		
+		setAttr("list2", list2);
+		setAttr("listCompany", listCompany);
+		setAttr("name1", name1);
+		setAttr("name2", name2);
+		render("/view/Executive_Realtion.html");
+	}
+	public void SelectRelation()
+	{
+		String type=getPara("type");
+		if(type.charAt(0)=='h')
+			Relation();		
 	}
 }

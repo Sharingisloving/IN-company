@@ -14,7 +14,14 @@ import cn.jbolt.common.model.base.BaseKeyexecutive;
 @SuppressWarnings("serial")
 public class Keyexecutive extends BaseKeyexecutive<Keyexecutive> {
 	public static final Keyexecutive dao = new Keyexecutive().dao();
-	public List<Record> findByExecutiveName(int id){//查高管
+	public List<Record> findByCompanyId(int id){//查高管
 		return Db.find( "select * from keyexecutive where companyid= "+id+" order by jobtitle desc");
+	}
+	public List<Record> findCompanyByExecutiveName(String name1,String name2){//查公司
+		return Db.find( "select DISTINCT CompanyId,Companyname from keyexecutive NATURAL JOIN companybusiness "
+				+ "where KeyExecutives='"+name1+"' or KeyExecutives='"+name2+"'");
+	}
+	public List<Record> findByExecutiveName(String name){//查高管
+		return Db.find( "select CompanyId,Companyname,JobTitle from keyexecutive NATURAL JOIN companybusiness where keyexecutives='"+name+"'");
 	}
 }
