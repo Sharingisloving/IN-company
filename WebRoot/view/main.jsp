@@ -10,15 +10,27 @@
 <script type="text/javascript">
 function CompanySearch(){
 	document.getElementById("js-human").classList.remove("active");
-	document.getElementById("js-company").classList.add("active");
+	document.getElementById("js-relation").classList.remove("active");
+	document.getElementById("js-company").classList.add("active");	
 	document.getElementById("input-human").classList.add("hidden");
+	document.getElementById("input-realtion").classList.add("hidden");
 	document.getElementById("input-company").classList.remove("hidden");
 }
 function HumanSearch(){
 	document.getElementById("js-company").classList.remove("active");
+	document.getElementById("js-relation").classList.remove("active");
 	document.getElementById("js-human").classList.add("active");
 	document.getElementById("input-company").classList.add("hidden");
+	document.getElementById("input-realtion").classList.add("hidden");
 	document.getElementById("input-human").classList.remove("hidden");
+}
+function RelationSearch(){
+	document.getElementById("js-company").classList.remove("active");
+	document.getElementById("js-human").classList.remove("active");
+	document.getElementById("js-relation").classList.add("active");
+	document.getElementById("input-company").classList.add("hidden");
+	document.getElementById("input-human").classList.add("hidden");
+	document.getElementById("input-realtion").classList.remove("hidden");
 }
 function search1(){
 	$("#CompanyForm").ajaxSubmit({
@@ -94,7 +106,14 @@ div {
 	padding: 5px 25px 5px 15px;
 	vertical-align: middle;
 }
-
+.home-group2 .input {
+	width: 320px;
+	border-color: transparent;
+	line-height: 24px;
+	font-size: 16px;
+	padding: 5px 25px 5px 15px;
+	vertical-align: middle;
+}
 .home-group .input-group-btn {
 	width: 100px;
 	border-left-color: #e0e0e0;
@@ -151,7 +170,7 @@ div {
             	<span>查高管</span>
             </div>
         </div>
-    	<div class="item" tab="js-relation" tyc-event-click tyc-event-ch="shouye.RelationSearch.Tab">
+    	<div class="item js-tab" id="js-relation"  onclick="RelationSearch()">
         	<div class="top">
             	<span>查关系</span>
             </div>
@@ -176,6 +195,20 @@ div {
             	<div class="live-search-wrap -index">
                 	<input type="search" id="home-main-search" class="input -hg js-live-search-auto"  maxlength="50" name="HumanName" placeholder="请输入高管名称" />
                     <input value="搜索" class="input-group-btn btn -hg" type="submit">
+					<ul class="live-search-content hidden"></ul>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="mt10 hidden js-search-container" id="input-realtion">
+    	<div class="input-group home-group2">
+    		<form id="RelationForm"  action="EX/search" method="post">
+            	<div class="live-search-wrap -index">
+                	<input type="search" id="home-main-search" class="input -hg js-live-search-auto"  maxlength="50" name="Relation1" placeholder="请输入相关名称" />
+                	<input type="search" id="home-main-search" class="input -hg js-live-search-auto"  maxlength="50" name="Relation2" placeholder="请输入相关名称" />
+                	<br><input type="radio" name="type" value="company">公司
+					<input type="radio" name="type" value="human">高管<br>
+                    <input value="查询" class="input-group-btn btn -hg" type="submit">
 					<ul class="live-search-content hidden"></ul>
                 </div>
             </form>
