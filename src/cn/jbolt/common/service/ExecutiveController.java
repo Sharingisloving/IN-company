@@ -1,5 +1,6 @@
 package cn.jbolt.common.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.jfinal.core.Controller;
@@ -88,10 +89,37 @@ public class ExecutiveController extends Controller {
 		setAttr("name2", name2);
 		render("/view/Executive_Realtion.html");
 	}
+	public void CompanyRelation() {
+		String name1=getPara("Relation1");
+		String name2=getPara("Relation2");
+		List<Record> list1=Companybusiness.dao.findByCompanyName(name1);
+		List<Record> list2=Companybusiness.dao.findByCompanyName(name2);
+		List<Record> executiveList=Companybusiness.dao.findExecutiveByCompanyName(name1,name2);
+		List<Record> list=new ArrayList<Record>();
+		if(executiveList.size()==0){
+			for(int i=0;i<list1.size();i++){
+				executiveList.add(list1.get(i));
+			}
+			for(int i=0;i<list2.size();i++){
+				executiveList.add(list2.get(i));
+			}
+		}
+		System.out.println(executiveList.size());
+		setAttr("executiveList", executiveList);
+		setAttr("list1", list1);		
+		setAttr("list2", list2);
+		setAttr("name1", name1);
+		setAttr("name2", name2);
+		render("/view/Company_Relation.html");
+	}
 	public void SelectRelation()
 	{
 		String type=getPara("type");
-		if(type.charAt(0)=='h')
-			Relation();		
+		if(type.charAt(0)=='h'){
+			Relation();	
+		}else{
+			CompanyRelation();
+		}
+				
 	}
 }

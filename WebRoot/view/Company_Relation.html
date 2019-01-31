@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>印尼查关系查询</title>
+		<link rel="stylesheet" href="/view/css/css1.css">
+		<!-- 引入 ECharts 文件 -->
+		<script src="/view/js/echarts4.0.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+	<div style="font-size:32px;text-align:center;">
+企业关系图 
+</br> 
+</div>
+<div style="font-size:20px;text-align:center;">
+(红色为公司名，蓝色为高管，线上为相关职位)</div>
+		<!-- 为 ECharts 准备一个具备大小（宽高）的 容器 -->
+		<div id="chart1" style="width: 80%;height: 400px;top: 50px;left: 10%;border: 3px solid #FF0000;"></div>
+		<div style="font-size:32px;text-align:center;">
+		</br> </br> 
+		<input type="button" name="submit" onclick="javascript:history.back(-1);" value="返回" class="input-group-btn btn -hg">
+		</div>
+		</body>
+</html>
+       
+
+       
+<script type="text/javascript">
+	// 基于准备好的容器(这里的容器是id为chart1的div)，初始化echarts实例
+	var chart1 = echarts.init(document.getElementById("chart1"));
+	var	option = {
+		backgroundColor: '#ccc',	// 背景颜色
+	    title: {                    // 图表标题
+	        text: "企业关系图",           // 标题文本
+	        left : '3%',                    // 标题距离左侧边距
+	        top : '3%',                     // 标题距顶部边距
+			textStyle : {                       // 标题样式
+				color : '#000',                     // 标题字体颜色
+				fontSize : '30',                    // 标题字体大小
+			}
+	    },
+	    tooltip: {                  // 提示框的配置
+	        formatter: function(param) {
+	            if (param.dataType === 'edge') {
+	                //return param.data.category + ': ' + param.data.target;
+	                return param.data.target;
+	            }
+	            //return param.data.category + ': ' + param.data.name;
+	            return param.data.name;
+	        }
+	    },
+	    
+	    series: [{
+	        type: "graph",          // 系列类型:关系图
+	        top: '10%',             // 图表距离容器顶部的距离
+	        roam: true,             // 是否开启鼠标缩放和平移漫游。默认不开启。如果只想要开启缩放或者平移，可以设置成 'scale' 或者 'move'。设置成 true 为都开启
+	        focusNodeAdjacency: true,   // 是否在鼠标移到节点上的时候突出显示节点以及节点的边和邻接节点。[ default: false ]
+	                force: {               
+	            repulsion: 1000,            
+	            edgeLength: [150, 100]      
+	        },
+	        layout: "force",            
+	        symbol: 'circle',
+	        lineStyle: {            
+	            normal: {
+	                color: '#000',          // 线的颜色
+	                width: 1,               // 线宽
+	                type: 'solid',          // 线的类型
+	                opacity: 0.5,           // 图形透明度
+	                curveness: 0            // 边的曲度，支持从 0 到 1 的值，值越大曲度越大
+	            }
+	        },
+	        label: {                // 关系对象上的标签
+	            normal: {
+	                show: true,                 // 是否显示标签
+	                position: "inside",         // 标签位置
+	                textStyle: {                // 文本样式
+	                    fontSize: 10
+	                }
+	            }
+	        },
+	        edgeLabel: {                // 连接两个关系对象的线上的标签
+	            normal: {
+	                show: true,
+	                textStyle: {                
+	                    fontSize: 12
+	                },
+	                formatter: function(param) {        // 标签内容
+	                    return param.data.category;
+	                }
+	            }
+	        },
+	        data: [{
+	            name:"#(name1)",
+	            draggable: true,                // 节点是否可拖拽，只在使用力引导布局的时候有用。
+	            symbolSize: [40, 40],         // 关系图节点标记的大小，
+	            itemStyle: {
+	            	color: '#ff0000'				// 关系图节点标记的颜色
+	            },
+	            category: "company"         // 数据项所在类目的 index。
+	        },{
+	            name: "#(name2)",
+	            draggable: true,                // 节点是否可拖拽，只在使用力引导布局的时候有用。
+	            symbolSize: [40, 40],         // 关系图节点标记的大小。
+	            itemStyle: {
+	            	color: '#ff0000'				// 关系图节点标记的颜色
+	            },
+	            category: "company"         // 数据项所在类目的 index。
+	        }
+				#for(x:executiveList)
+           ,{
+	            name: "#(x.KeyExecutives)",
+	            draggable: true,               
+	            symbolSize: [30, 30],         
+	            itemStyle: {
+	            	color: '#0000ff'			
+	            },
+	            category: "human"         
+	        }
+           #end
+            
+           ],
+	        categories: [{              // 节点分类的类目，可选。和筛选。
+	            name: "human"            // 类目名称，用于和 legend 对应以及格式化 tooltip 的内容。
+	        }, {
+	            name: "company"
+	        }],
+	        links: [
+		        #for(x:list1)
+	        {                  
+	            target: "#(x.KeyExecutives)",
+	            source: "#(name1)",
+	            category:"#(x.JobTitle)"           
+	        },
+                 #end
+                 
+                 #for(x:list2)
+     	    {                  
+     	            target: "#(x.KeyExecutives)",
+     	            source: "#(name2)",
+     	            category:"#(x.JobTitle)"          
+     	    },
+                      #end
+                  
+                 
+		       ]
+	    }],
+	    
+	    animationEasingUpdate: "quinticInOut",          // 数据更新动画的缓动效果。[ default: cubicOut ]    "quinticInOut"
+	    animationDurationUpdate: 100                    // 数据更新动画的时长。[ default: 300 ]
+	};
+	
+	// 使用刚指定的配置项和数据显示图表
+	chart1.setOption(option)
+	chart1.on('click', function (params) {
+		if (params.color === "#0000ff") {
+			window.open('/EX/search?HumanName='+encodeURIComponent(params.name));
+	    }
+	    else {
+	    	window.open('/detail?company='+encodeURIComponent(params.name));
+	    }
+});
+	
+</script>

@@ -1,5 +1,7 @@
 package cn.jbolt.common.model;
 
+import java.util.List;
+
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
@@ -15,6 +17,12 @@ public class Companybusiness extends BaseCompanybusiness<Companybusiness> {
 	
 	public Page<Record> findByCompanyName(int page,String CompanyName){
 		return Db.paginate(page,9, "select *","from companybusiness where CompanyName like '%"+CompanyName+"%'");
+	}
+	public List<Record> findByCompanyName(String name){//企业关系
+		return Db.find( "select CompanyId,Companyname,JobTitle,KeyExecutives from keyexecutive NATURAL JOIN companybusiness where CompanyName='"+name+"'");
+	}
+	public List<Record> findExecutiveByCompanyName(String name1,String name2){//企业关系查公司
+		return Db.find("select distinct KeyExecutives,JobTitle from keyexecutive NATURAL JOIN companybusiness where (CompanyName='"+name1+"' or CompanyName='"+name2+"')and KeyExecutives in (select KeyExecutives from keyexecutive NATURAL JOIN companybusiness where (CompanyName='"+name1+"' or CompanyName='"+name2+"') group by KeyExecutives HAVING COUNT(KeyExecutives)>1)");
 	}
 	public Page<Record> findByExecutiveName(int page,String HumanName){//查人
 		return Db.paginate(page,10, "select *","from companybusiness natural join keyexecutive"

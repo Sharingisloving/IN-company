@@ -1,18 +1,22 @@
 package cn.jbolt.common.service;
 
+import java.util.List;
+
 import com.jfinal.core.ActionKey;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
 
 import cn.jbolt.common.model.Companybusiness;
+import cn.jbolt.common.model.Keyexecutive;
 
 
 public class CompanyController extends Controller {
 	public void index() {
     	render("/view/main.jsp");
     }
-	
+ 
+
 	public void search1(){
 		Integer pageNumber=getParaToInt("pageNumber");
 		if(pageNumber==null){
@@ -210,6 +214,7 @@ public class CompanyController extends Controller {
 		setAttr("pageNumber", list.getPageNumber());
 		setAttr("Company", list.getList());
 		render("/view/company_list.jsp");
-		
 	}
+	
+	
 }
